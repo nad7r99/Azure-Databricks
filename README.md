@@ -18,9 +18,11 @@ Databricks Platform Architecture
 - Compute Plane:
      - Classic Compute — provisioned in the customer's cloud subscription
      - Serverless Compute — provisioned from Databricks' own pre-allocated resource pool for faster startup
-       Data Lakehouse Concept
+
+     
+- Data Lakehouse Concept :
 
 Combines the flexibility and low cost of Data Lakes with the ACID transactions and governance of Data Warehouses, powered by:
 
-Delta Lake — the storage layer (Parquet + transaction log) providing ACID guarantees, versioning, and time travel
-Unity Catalog — centralized governance, access control, and metadata management
+ - Delta Lake — the storage layer (Parquet + transaction log) providing ACID guarantees, versioning, and time travel
+ - Unity Catalog — centralized governance, access control, and metadata management
