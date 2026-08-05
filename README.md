@@ -30,9 +30,9 @@ Combines the flexibility and low cost of Data Lakes with the ACID transactions a
 
 Medallion Architecture
 
-  -- Landing → Bronze → Silver → Gold
+  - Landing → Bronze → Silver → Gold
 
-Layer:     Purpose:
+Layer:         Purpose:
 
 Landing  -->	Raw source files land here untouched (ADLS container + Unity Catalog Volume)
 
