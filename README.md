@@ -19,10 +19,46 @@ Databricks Platform Architecture
      - Classic Compute — provisioned in the customer's cloud subscription
      - Serverless Compute — provisioned from Databricks' own pre-allocated resource pool for faster startup
 
-     
-- Data Lakehouse Concept :
 
+     
+Data Lakehouse Concept :
 Combines the flexibility and low cost of Data Lakes with the ACID transactions and governance of Data Warehouses, powered by:
 
  - Delta Lake — the storage layer (Parquet + transaction log) providing ACID guarantees, versioning, and time travel
  - Unity Catalog — centralized governance, access control, and metadata management
+
+
+Medallion Architecture
+
+  -- Landing → Bronze → Silver → Gold
+
+Layer:     Purpose:
+Landing	Raw source files land here untouched (ADLS container + Unity Catalog Volume)
+Bronze	Raw data ingested as-is into Delta tables, with schema enforcement + audit metadata (ingestion_timestamp, source_file)
+Silver	Cleaned, standardized, deduplicated, business-key-validated data
+Gold	     Dimensional model (Star Schema) optimized for reporting and analytics
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
