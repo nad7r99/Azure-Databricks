@@ -46,13 +46,13 @@ Gold	    -->   Dimensional model (Star Schema) optimized for reporting and analy
 
 ### Unity Catalog Object Model
 
-Metastore
-   └── Catalog (formula1)
-         └── Schema (landing / bronze / silver / gold)
-               ├── Tables (Managed / External)
-               ├── Views
-               ├── Functions
-               └── Volumes (Managed / External)
+ Metastore
+    └──  Catalog (formula1)
+           └── Schema (landing / bronze / silver / gold)
+                ├── Tables (Managed / External)
+                ├── Views
+                ├── Functions
+                └── Volumes (Managed / External)
 
 + Storage Credentials & External Locations (secure cloud storage access)
 
