@@ -14,11 +14,11 @@ Data source: jolpica-f1 (Ergast-format relational data), covering circuits, race
 
 # Architecture
 Databricks Platform Architecture
-Control Plane (Databricks-managed): Web UI, Cluster Manager, Unity Catalog metadata, workspace storage
-Compute Plane:
-Classic Compute — provisioned in the customer's cloud subscription
-Serverless Compute — provisioned from Databricks' own pre-allocated resource pool for faster startup
-Data Lakehouse Concept
+- Control Plane (Databricks-managed): Web UI, Cluster Manager, Unity Catalog metadata, workspace storage
+- Compute Plane:
+     - Classic Compute — provisioned in the customer's cloud subscription
+     - Serverless Compute — provisioned from Databricks' own pre-allocated resource pool for faster startup
+       Data Lakehouse Concept
 
 Combines the flexibility and low cost of Data Lakes with the ACID transactions and governance of Data Warehouses, powered by:
 
