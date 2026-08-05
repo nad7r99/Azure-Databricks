@@ -33,10 +33,14 @@ Medallion Architecture
   -- Landing → Bronze → Silver → Gold
 
 Layer:     Purpose:
-Landing	Raw source files land here untouched (ADLS container + Unity Catalog Volume)
-Bronze	Raw data ingested as-is into Delta tables, with schema enforcement + audit metadata (ingestion_timestamp, source_file)
-Silver	Cleaned, standardized, deduplicated, business-key-validated data
-Gold	     Dimensional model (Star Schema) optimized for reporting and analytics
+
+Landing  -->	Raw source files land here untouched (ADLS container + Unity Catalog Volume)
+
+Bronze   -->	Raw data ingested as-is into Delta tables, with schema enforcement + audit metadata (ingestion_timestamp, source_file)
+
+Silver   -->	Cleaned, standardized, deduplicated, business-key-validated data
+
+Gold	    -->   Dimensional model (Star Schema) optimized for reporting and analytics
 
 
 
