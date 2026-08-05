@@ -21,14 +21,14 @@ Data source: jolpica-f1 (Ergast-format relational data), covering circuits, race
 
 
      
-Data Lakehouse Concept :
+### Data Lakehouse Concept :
 Combines the flexibility and low cost of Data Lakes with the ACID transactions and governance of Data Warehouses, powered by:
 
  - Delta Lake — the storage layer (Parquet + transaction log) providing ACID guarantees, versioning, and time travel
  - Unity Catalog — centralized governance, access control, and metadata management
 
 
-Medallion Architecture
+### Medallion Architecture
 
   - Landing → Bronze → Silver → Gold
 
@@ -44,14 +44,25 @@ Gold	    -->   Dimensional model (Star Schema) optimized for reporting and analy
 
 
 
+### Unity Catalog Object Model
+
+Metastore
+   └── Catalog (formula1)
+         └── Schema (landing / bronze / silver / gold)
+               ├── Tables (Managed / External)
+               ├── Views
+               ├── Functions
+               └── Volumes (Managed / External)
+
++ Storage Credentials & External Locations (secure cloud storage access)
 
 
 
+Gold Layer — Dimensional Model (Star Schema)
 
-
-
-
-
+ dim_races
+                     │
+dim_drivers ── fact_session_results ── dim_constructors
 
 
 
