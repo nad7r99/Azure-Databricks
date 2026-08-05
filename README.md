@@ -10,3 +10,17 @@ This project was built as the hands-on capstone for a Databricks Data Engineerin
 The goal of this project is to build a reliable, governed, and scalable data platform that answers real analytical questions about Formula 1 — such as driver standings, constructor standings, and "who are the greatest drivers of all time?" — while following the same architectural patterns used in real production data engineering projects.
 
 Data source: jolpica-f1 (Ergast-format relational data), covering circuits, races, constructors, drivers, race results, and sprint results.
+
+
+# Architecture
+Databricks Platform Architecture
+Control Plane (Databricks-managed): Web UI, Cluster Manager, Unity Catalog metadata, workspace storage
+Compute Plane:
+Classic Compute — provisioned in the customer's cloud subscription
+Serverless Compute — provisioned from Databricks' own pre-allocated resource pool for faster startup
+Data Lakehouse Concept
+
+Combines the flexibility and low cost of Data Lakes with the ACID transactions and governance of Data Warehouses, powered by:
+
+Delta Lake — the storage layer (Parquet + transaction log) providing ACID guarantees, versioning, and time travel
+Unity Catalog — centralized governance, access control, and metadata management
