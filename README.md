@@ -62,7 +62,71 @@ Gold	    -->   Dimensional model (Star Schema) optimized for reporting and analy
 
 
 
+# Key Engineering Practices Implemented
+- Explicit schema definition (StructType/StructField and DDL-style strings) instead of relying on inferSchema, for reliability and performance
+- Configurable error handling via read modes (permissive, dropMalformed, failFast)
+- Metadata enrichment — every Bronze record is tagged with ingestion_timestamp and source_file
+- Reusable helper functions and a centralized environment configuration notebook to eliminate hard-coded catalog/schema/path values across notebooks
+- Balanced Spark coding style — a "middle ground" between fully step-by-step and fully chained transformations, for readability and maintainability without sacrificing conciseness
+- Delta Lake internals — transaction log (_delta_log), DESCRIBE HISTORY, time travel (VERSION AS OF / TIMESTAMP AS OF), and RESTORE TABLE
 
+
+# Incremental Data Processing
+
+The pipeline evolved from a simple full-refresh design to a production-style incremental pipeline:
+
+- Source files arrive in batch-based folders (e.g. landing/2025-01/, landing/2025-02/...), with a cutover batch containing full historical data plus the first new batch
+- Bronze layer: data is appended and partitioned by batch_id, using replaceWhere to safely reprocess a batch without duplicating records
+- Silver/Gold layers: a unified MERGE strategy (via a reusable write_to_silver helper function) handles inserts and updates for both snapshot and change data, while:
+    - Preserving created_timestamp on first insert only
+    - Updating updated_timestamp on every merge
+    - Protecting against out-of-order/older batch reprocessing using a batch_id comparison condition
+ 
+    - 
+### Orchestration (Batch Control)
+
+A dedicated batch_control Delta table tracks the lifecycle of every batch (in_progress → completed), enabling full automation:
+
+Identify Next Batch  →  Create New Batch (in_progress)  →  Run Bronze/Silver/Gold  →  Complete Batch
+
+# Orchestration with Lakeflow Jobs
+- Multi-task workflows built entirely within Databricks — no external orchestrator (e.g. Airflow, ADF) required
+- Job Compute used over All-Purpose Compute (≈50% cheaper, automatic start/stop, workload isolation)
+- Triggers implemented:
+    - File Arrival Trigger — job starts automatically when a "batch complete" flag file lands in a monitored folder
+    - Table Update Trigger — job starts automatically when a new row is inserted into a monitored control table
+- Task-level configuration: dependencies, retries, notifications, and metric thresholds
+
+# Analytics & Reporting (Databricks SQL)
+- Driver Standings and Constructor Standings views built with Spark SQL, using RANK() OVER (PARTITION BY season ORDER BY total_points DESC, total_wins DESC)
+- A custom "Greatness Score" analysis — going beyond raw points (which are skewed by F1's evolving points system and race-calendar length across eras) to fairly compare     legendary drivers across different periods of the sport
+- Interactive dashboards built and published via Databricks SQL, backed by a dedicated SQL Warehouse
+
+
+# Tech Stack
+
+<img width="748" height="414" alt="Screenshot from 2026-08-05 18-39-38" src="https://github.com/user-attachments/assets/35601978-f534-4a49-92e7-54b3606a8093" />
+
+
+
+# Repository Structure
+
+<img width="629" height="379" alt="Screenshot from 2026-08-05 18-40-27" src="https://github.com/user-attachments/assets/0d0f2e4b-3ecb-4889-997c-724b9ce74fed" />
+
+
+
+# About This Project
+
+This project was completed as part of a Databricks Data Engineering course, covering the platform end-to-end — from architecture fundamentals to a fully automated, incrementally-processing production pipeline.
+
+Course: Real World Project on Formula1 using Databricks, Spark, Delta Lake, Unity Catalog, Lakeflow Jobs
+
+
+# Connect
+If you have questions, suggestions, or just want to talk data engineering — feel free to reach out or open an issue!
+
+# about me
+I'm Nader Mohamed, Studting at faculty of science Math & CS department, Care about Data.
 
 
 
