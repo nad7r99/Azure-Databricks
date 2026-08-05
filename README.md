@@ -52,13 +52,13 @@ Gold	    -->   Dimensional model (Star Schema) optimized for reporting and analy
 
 
 
-Gold Layer — Dimensional Model (Star Schema)
+### Gold Layer — Dimensional Model (Star Schema)
 
- dim_races
-                     │
-dim_drivers ── fact_session_results ── dim_constructors
+<img width="621" height="103" alt="Screenshot from 2026-08-05 18-28-51" src="https://github.com/user-attachments/assets/0ca24190-0ac4-490c-9f6f-282d407a6c7d" />
 
 
+- fact_session_results — one row per driver per race/sprint session, with a session_type column to distinguish Race vs Sprint results (unified from two separate fact tables for simpler downstream aggregation)
+- dim_races, dim_drivers, dim_constructors — descriptive context, enriched with a derived region attribute from nationality
 
 
 
