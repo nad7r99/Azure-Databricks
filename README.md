@@ -13,7 +13,7 @@ Data source: jolpica-f1 (Ergast-format relational data), covering circuits, race
 
 
 # Architecture
-Databricks Platform Architecture
+### Databricks Platform Architecture
 - Control Plane (Databricks-managed): Web UI, Cluster Manager, Unity Catalog metadata, workspace storage
 - Compute Plane:
      - Classic Compute — provisioned in the customer's cloud subscription
